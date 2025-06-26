@@ -5,9 +5,16 @@ from datetime import datetime
 
 app = FastAPI()
 
+from pymongo import MongoClient
+import certifi
+
 try:
-    client = MongoClient("mongodb+srv://darkphoenix67cdlc:wrqxPT5KduwcQHZ0@registros.l1xvkg8.mongodb.net/?retryWrites=true&w=majority&appName=Registros")
-    client.server_info()
+    client = MongoClient(
+        "mongodb+srv://darkphoenix67cdlc:wrqxPT5KduwcQHZ0@registros.l1xvkg8.mongodb.net/?retryWrites=true&w=majority&appName=Registros",
+        tls=True,
+        tlsCAFile=certifi.where()
+    )
+    client.server_info()  # Fuerza la conexión y lanza error si falla
     db = client["Registros"]
     collection = db["localizaciones"]
     print("✅ Conectado correctamente a MongoDB Atlas")
