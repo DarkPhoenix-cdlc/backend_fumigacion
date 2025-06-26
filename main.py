@@ -22,6 +22,7 @@ class Checkin(BaseModel):
 @app.post("/checkin")
 def recibir_checkin(data: Checkin):
     now = datetime.now()
+    
 
     registro = {
         "nombre": data.nombre,
@@ -37,3 +38,6 @@ def recibir_checkin(data: Checkin):
     print(f"✅ Check-in recibido de {data.nombre} a las {registro['hora']} ({registro['latitud']}, {registro['longitud']})")
 
     return {"mensaje": f"Check-in de {data.nombre} guardado correctamente"}
+@app.get("/")
+def root():
+    return {"mensaje": "Backend en línea"}
